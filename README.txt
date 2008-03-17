@@ -17,11 +17,18 @@ and I'll see what I can do to fix it.
 [2]: http://www.apple.com/safari/
 
 
+Download
+--------
+
+[SafariSingleWindow.zip][3] (5.8 KB).
+
+[3]: http://bitheap.org/singlewindow/SafariSingleWindow.zip
+
+
 Development
 -----------
 
-The official development repository is located at
-http://bitheap.org/hg/safarisinglewindow/. Download using [Mercurial][4]:
+Download the official development repository using [Mercurial][4]:
 
     hg clone http://bitheap.org/hg/safarisinglewindow/ safarisinglewindow
 
