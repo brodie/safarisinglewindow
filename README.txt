@@ -10,7 +10,7 @@ your home folder and restart Safari. To uninstall the plugin, simply delete
 the plugin's folder.
 
 If you experience any problems, check Console for lines starting with
-`[SafarSingleWindow]`. If you see any, copy them and email them to me,
+`[SafariSingleWindow]`. If you see any, copy them and email them to me,
 and I'll see what I can do to fix it.
 
 [1]: http://www.culater.net/software/SIMBL/SIMBL.php
