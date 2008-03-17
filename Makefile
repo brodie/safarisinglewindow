@@ -1,8 +1,10 @@
+CFLAGS=-bundle -framework Cocoa -framework WebKit -arch i386 -arch ppc
+
 all: build
 
 build:
 	mkdir -p SafariSingleWindow.bundle/Contents/MacOS
-	gcc -bundle -framework Cocoa -framework WebKit SafariSingleWindow.m -o SafariSingleWindow.bundle/Contents/MacOS/SafariSingleWindow
+	gcc $(CFLAGS) SafariSingleWindow.m -o SafariSingleWindow.bundle/Contents/MacOS/SafariSingleWindow
 	cp Info.plist SafariSingleWindow.bundle/Contents
 clean:
 	rm -rf SafariSingleWindow.bundle
