@@ -24,6 +24,15 @@ BOOL swizzle(Class cls, SEL old_sel, SEL new_sel)
 
 @implementation WebView (SafariSingleWindowWebView)
 
+- (void) SafariSingleWindow_webView: (WebView*) sender
+         setFrame: (NSRect) frameRect {}
+- (void) SafariSingleWindow_webView: (WebView*) sender
+         setToolbarsVisible: (BOOL) toggle {}
+- (void) SafariSingleWindow_webView: (WebView*) sender
+         setStatusBarVisible: (BOOL) toggle {}
+- (void) SafariSingleWindow_webView: (WebView*) sender
+         setResizable: (BOOL) toggle {}
+
 - (WebView*) SafariSingleWindow_webView: (WebView*) sender
              createWebViewWithRequest: (NSURLRequest*) request
 {
@@ -140,6 +149,22 @@ failed:
         NSLog(@"[SafariSingleWindow] WARNING: Failed to swizzle "
                "[BrowserWebView webView:createWebViewWithRequest:]");
     }
+    if (!swizzle(cls, @selector(webView:setFrame:),
+                 @selector(SafariSingleWindow_webView:setFrame:)))
+        NSLog(@"[SafariSingleWindow] WARNING: Failed to swizzle "
+               "[BrowserWebView webView:setFrame:]");
+    if (!swizzle(cls, @selector(webView:setToolbarsVisible:),
+                 @selector(SafariSingleWindow_webView:setToolbarsVisible:)))
+        NSLog(@"[SafariSingleWindow] WARNING: Failed to swizzle "
+               "[BrowserWebView webView:setToolbarsVisible:]");
+    if (!swizzle(cls, @selector(webView:setStatusBarVisible:),
+                 @selector(SafariSingleWindow_webView:setStatusBarVisible:)))
+        NSLog(@"[SafariSingleWindow] WARNING: Failed to swizzle "
+               "[BrowserWebView webView:setStatusBarVisible:]");
+    if (!swizzle(cls, @selector(webView:setResizable:),
+                 @selector(SafariSingleWindow_webView:setResizable:)))
+        NSLog(@"[SafariSingleWindow] WARNING: Failed to swizzle "
+               "[BrowserWebView webView:setResizable:]"); 
 }
 
 @end
