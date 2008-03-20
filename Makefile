@@ -1,4 +1,4 @@
-CFLAGS=-U__OBJC2__ -bundle -framework Cocoa -framework WebKit -arch i386 -arch x86_64 -arch ppc -arch ppc64
+CFLAGS=-mmacosx-version-min=10.4 -U__OBJC2__ -bundle -framework Cocoa -framework WebKit -arch i386 -arch x86_64 -arch ppc -arch ppc64
 
 all: build
 
