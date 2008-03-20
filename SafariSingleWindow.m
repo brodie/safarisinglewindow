@@ -50,7 +50,38 @@ succeeded:
     return tab;
 failed:
     return [self SafariSingleWindow_webView: sender
-                 createWebViewWithRequest: request]; 
+                 createWebViewWithRequest: request];
+}
+
+- (WebView*) SafariSingleWindow_webView: (WebView*) sender
+             createWebViewWithRequest: (NSURLRequest*) request
+             windowFeatures: (NSDictionary*) features
+{
+    NSWindow* window = [self window];
+    if (!window)
+        goto failed;
+    NSWindowController* controller = [window windowController];
+    if (!controller)
+        goto failed;
+    WebView* tab = [controller createTab];
+    if (!tab)
+        goto failed;
+    WebFrame* frame = [tab mainFrame];
+    if (!frame)
+    {
+        NSLog(@"[SafariSingleWindow] Got nil mainFrame for createTab, "
+               "attempting closeTab");
+        [controller closeTab: tab];
+        goto failed;
+    }
+
+succeeded:
+    [frame loadRequest: request];
+    return tab;
+failed:
+    return [self SafariSingleWindow_webView: sender
+                 createWebViewWithRequest: request
+                 windowFeatures: features];
 }
 
 @end
@@ -101,10 +132,14 @@ failed:
         return;
     }
 
-    if (!swizzle(cls, @selector(webView:createWebViewWithRequest:),
+    if (!swizzle(cls, @selector(webView:createWebViewWithRequest:windowFeatures:),
+            @selector(SafariSingleWindow_webView:createWebViewWithRequest:windowFeatures:))
+        && !swizzle(cls, @selector(webView:createWebViewWithRequest:),
             @selector(SafariSingleWindow_webView:createWebViewWithRequest:)))
+    {
         NSLog(@"[SafariSingleWindow] WARNING: Failed to swizzle "
                "[BrowserWebView webView:createWebViewWithRequest:]");
+    }
 }
 
 @end

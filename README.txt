@@ -20,7 +20,7 @@ and I'll see what I can do to fix it.
 Download
 --------
 
-[SafariSingleWindow.zip][3] (13 KB)
+[SafariSingleWindow.zip][3] (14 KB)
 
 [3]: http://bitheap.org/singlewindow/SafariSingleWindow.zip
 
