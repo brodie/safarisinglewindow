@@ -30,7 +30,7 @@ Development
 
 Download the official development repository using [Mercurial][4]:
 
-    hg clone http://bitheap.org/hg/safarisinglewindow/ safarisinglewindow
+    hg clone http://bitheap.org/hg/safarisinglewindow/
 
 Run `make` to compile the plugin, and `make install` to install it into
 your home directory's SIMBL plugins folder.
