@@ -5,7 +5,7 @@ SafariSingleWindow is a [SIMBL][1] plugin for [Safari][2] that forces all
 links that would open in new windows to open in new tabs instead.
 
 No configuration is necessary, just open the `.dmg` file, run `Install`, and
-restart Terminal.app. To uninstall, simply run `Uninstall` from the `.dmg`.
+restart Safari. To uninstall, simply run `Uninstall` from the `.dmg`.
 
 If you experience any problems, check Console for lines starting with
 `[SafariSingleWindow]`. If you see any, copy them and email them to me,
