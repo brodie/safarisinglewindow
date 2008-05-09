@@ -2,25 +2,7 @@
 #import <Cocoa/Cocoa.h>
 #import <objc/objc-class.h>
 
-BOOL swizzle(Class cls, SEL old_sel, SEL new_sel)
-{
-    Method old_method = class_getInstanceMethod(cls, old_sel);
-    if (!old_method)
-        return NO;
-    Method new_method = class_getInstanceMethod(cls, new_sel);
-    if (!new_method)
-        return NO;
-
-    char* old_types = old_method->method_types;
-    old_method->method_types = new_method->method_types;
-    new_method->method_types = old_types;
-
-    IMP old_imp = old_method->method_imp;
-    old_method->method_imp = new_method->method_imp;
-    new_method->method_imp = old_imp;
-
-    return YES;
-}
+#import "JRSwizzle.h"
 
 @implementation WebView (SafariSingleWindowWebView)
 
@@ -95,7 +77,7 @@ failed:
 
 @end
 
-@interface SafariSingleWindow: NSObject {}
+@interface SafariSingleWindow: NSObject
 @end
 
 @implementation SafariSingleWindow
@@ -141,30 +123,37 @@ failed:
         return;
     }
 
-    if (!swizzle(cls, @selector(webView:createWebViewWithRequest:windowFeatures:),
-            @selector(SafariSingleWindow_webView:createWebViewWithRequest:windowFeatures:))
-        && !swizzle(cls, @selector(webView:createWebViewWithRequest:),
-            @selector(SafariSingleWindow_webView:createWebViewWithRequest:)))
+    if (![cls jr_swizzleMethod: @selector(webView:createWebViewWithRequest:windowFeatures:)
+              withMethod: @selector(SafariSingleWindow_webView:createWebViewWithRequest:windowFeatures:)
+              error: nil]
+        &&
+        ![cls jr_swizzleMethod: @selector(webView:createWebViewWithRequest:)
+              withMethod: @selector(SafariSingleWindow_webView:createWebViewWithRequest:)
+              error: nil])
     {
         NSLog(@"[SafariSingleWindow] WARNING: Failed to swizzle "
                "[BrowserWebView webView:createWebViewWithRequest:]");
     }
-    if (!swizzle(cls, @selector(webView:setFrame:),
-                 @selector(SafariSingleWindow_webView:setFrame:)))
+    if (![cls jr_swizzleMethod: @selector(webView:setFrame:)
+              withMethod: @selector(SafariSingleWindow_webView:setFrame:)
+              error: nil])
         NSLog(@"[SafariSingleWindow] WARNING: Failed to swizzle "
                "[BrowserWebView webView:setFrame:]");
-    if (!swizzle(cls, @selector(webView:setToolbarsVisible:),
-                 @selector(SafariSingleWindow_webView:setToolbarsVisible:)))
+    if (![cls jr_swizzleMethod: @selector(webView:setToolbarsVisible:)
+              withMethod: @selector(SafariSingleWindow_webView:setToolbarsVisible:)
+              error: nil])
         NSLog(@"[SafariSingleWindow] WARNING: Failed to swizzle "
                "[BrowserWebView webView:setToolbarsVisible:]");
-    if (!swizzle(cls, @selector(webView:setStatusBarVisible:),
-                 @selector(SafariSingleWindow_webView:setStatusBarVisible:)))
+    if (![cls jr_swizzleMethod: @selector(webView:setStatusBarVisible:)
+              withMethod: @selector(SafariSingleWindow_webView:setStatusBarVisible:)
+              error: nil])
         NSLog(@"[SafariSingleWindow] WARNING: Failed to swizzle "
                "[BrowserWebView webView:setStatusBarVisible:]");
-    if (!swizzle(cls, @selector(webView:setResizable:),
-                 @selector(SafariSingleWindow_webView:setResizable:)))
+    if (![cls jr_swizzleMethod: @selector(webView:setResizable:)
+              withMethod: @selector(SafariSingleWindow_webView:setResizable:)
+              error: nil])
         NSLog(@"[SafariSingleWindow] WARNING: Failed to swizzle "
-               "[BrowserWebView webView:setResizable:]"); 
+               "[BrowserWebView webView:setResizable:]");
 }
 
 @end

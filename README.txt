@@ -4,10 +4,8 @@ SafariSingleWindow
 SafariSingleWindow is a [SIMBL][1] plugin for [Safari][2] that forces all
 links that would open in new windows to open in new tabs instead.
 
-No configuration is necessary, just install SIMBL and move
-`SafariSingleWindow.bundle` to `Library/Application Support/SIMBL/Plugins` in
-your home folder and restart Safari. To uninstall the plugin, simply delete
-the plugin's folder.
+No configuration is necessary, just open the `.dmg` file, run `Install`, and
+restart Terminal.app. To uninstall, simply run `Uninstall` from the `.dmg`.
 
 If you experience any problems, check Console for lines starting with
 `[SafariSingleWindow]`. If you see any, copy them and email them to me,
@@ -20,27 +18,53 @@ and I'll see what I can do to fix it.
 Download
 --------
 
-[SafariSingleWindow.zip][3] (15 KB)
+[SafariSingleWindow.dmg][3] (64 KB)
 
-[3]: http://bitheap.org/singlewindow/SafariSingleWindow.zip
+[3]: http://bitheap.org/singlewindow/SafariSingleWindow.dmg
+
+
+Frequently Asked Questions
+--------------------------
+
+> How is this any better than running `defaults write com.apple.Safari
+> TargetedClicksCreateTabs -bool true` with Safari 3.1?
+
+That setting is experimental, and only applies to anchor tags that have
+a `target` attribute. It won't work for new windows made via JavaScript
+and it may actually cause issues with certain sites. SafariSingleWindow
+intercepts *all* requests to create new windows - even ones from JavaScript.
+
+> Won't this plugin break when Apple finishes fleshing out that above
+> setting?
+
+No. SafariSingleWindow works on a different level than Safari's setting.
+If Apple ever chooses to make it configurable through a dialog, the setting
+would simply have no effect if you have SafariSingleWindow installed.
+
+The plugin also uses very little of Safari's API, and it checks for the
+presence of those APIs before loading. The majority of the plugin uses
+public [WebKit][4] APIs (the open source browser engine that Safari uses).
+
+[4]: http://webkit.org/
 
 
 Development
 -----------
 
-Download the official development repository using [Mercurial][4]:
+Download the official development repository using [Mercurial][5]:
 
     hg clone http://bitheap.org/hg/safarisinglewindow/
 
 Run `make` to compile the plugin, and `make install` to install it into
-your home directory's SIMBL plugins folder.
+your home directory's SIMBL plugins folder. Run `make` and `make builddmg`
+to create a disk image of the application.
 
-[4]: http://www.selenic.com/mercurial/
+[5]: http://www.selenic.com/mercurial/
 
 
 Contact
 -------
 
-Contact information can be found on my site, [brodierao.com][5].
+Contact information can be found on my site, [brodierao.com][6].
 
-[5]: http://brodierao.com/
+[6]: http://brodierao.com/
