@@ -18,7 +18,7 @@ and I'll see what I can do to fix it.
 Download
 --------
 
-[SafariSingleWindow.dmg][3] (64 KB)
+[SafariSingleWindow.dmg][3] (65 KB)
 
 [3]: http://bitheap.org/singlewindow/SafariSingleWindow.dmg
 
