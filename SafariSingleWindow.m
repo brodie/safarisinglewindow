@@ -84,22 +84,6 @@ failed:
 
 + (void) load
 {
-    NSNotificationCenter* center = [NSNotificationCenter defaultCenter];
-    if (!center)
-    {
-        NSLog(@"[SafariSingleWindow] ERROR: Got nil from "
-               "[NSNotificationCenter defaultCenter]");
-        return;
-    }
-
-    [center addObserver: self
-            selector: @selector(applicationDidFinishLaunching:)
-            name: NSApplicationDidFinishLaunchingNotification
-            object: nil];
-}
-
-+ (void) applicationDidFinishLaunching: (NSNotification*) notification
-{
     Class cls = NSClassFromString(@"BrowserWindowController");
     if (!cls)
     {
