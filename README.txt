@@ -19,7 +19,7 @@ and I'll see what I can do to fix it.
 Download
 --------
 
-[SafariSingleWindow.dmg][4] (64 KB)
+[SafariSingleWindow.dmg][4] (67 KB)
 
 [4]: http://bitheap.org/singlewindow/SafariSingleWindow.dmg
 
@@ -45,6 +45,13 @@ would simply have no effect if you have SafariSingleWindow installed.
 The plugin also uses very little of Safari's API, and it checks for the
 presence of those APIs before loading. The majority of the plugin uses
 public [WebKit][5] APIs (the open source browser engine that Safari uses).
+
+> Why have my window resizing bookmarklets stopped working?
+
+SafariSingleWindow disables windows resizing from scripts to prevent pop-ups
+from clobbering your current window's dimensions. This is intentional, and if
+you want to bypass the plugin temporarily to run your bookmarklets, use the
+newly added "Single Window Mode" menu item in the "Safari" menu.
 
 [5]: http://webkit.org/
 

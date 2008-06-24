@@ -80,8 +80,10 @@ failed:
 
 @implementation SafariSingleWindow
 
-+ (void) load
++ (void) swizzle
 {
+    @synchronized(self)
+    {
     Class cls = NSClassFromString(@"BrowserWindowController");
     if (!cls)
     {
@@ -131,6 +133,47 @@ failed:
               error: nil])
         NSLog(@"[SafariSingleWindow] WARNING: Failed to swizzle "
                "[BrowserWebView webView:setStatusBarVisible:]");
+    }
+}
+
++ (IBAction) toggle: (NSMenuItem*) sender
+{
+    [sender setState: ![sender state]];
+    [self swizzle];
+}
+
++ (void) insertMenu
+{
+    NSMenu* mainMenu = [NSApp mainMenu];
+    if (!mainMenu)
+        return;
+    NSMenuItem* safariMenuItem = [mainMenu itemAtIndex: 0];
+    if (!safariMenuItem)
+        return;
+    NSMenu* safariMenu = [safariMenuItem submenu];
+    if (!safariMenu)
+        return;
+    NSInteger popupIndex = [safariMenu indexOfItemWithTitle:
+                                           @"Block Pop-Up Windows"];
+    if (popupIndex == -1)
+        return;
+
+    NSMenuItem* item = [safariMenu insertItemWithTitle: @"Single Window Mode"
+                                   action: @selector(toggle:)
+                                   keyEquivalent: @""
+                                   atIndex: popupIndex];
+    if (!item)
+        return;
+
+    [item setTarget: self];
+    [item setState: NSOnState];
+    [item setEnabled: YES];
+}
+
++ (void) load
+{
+    [self swizzle];
+    [self insertMenu];
 }
 
 @end
