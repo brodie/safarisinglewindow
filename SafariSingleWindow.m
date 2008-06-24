@@ -153,15 +153,28 @@ failed:
     NSMenu* safariMenu = [safariMenuItem submenu];
     if (!safariMenu)
         return;
-    NSInteger popupIndex = [safariMenu indexOfItemWithTitle:
-                                           @"Block Pop-Up Windows"];
-    if (popupIndex == -1)
+    NSArray* itemArray = [safariMenu itemArray];
+    if (!itemArray)
         return;
 
-    NSMenuItem* item = [safariMenu insertItemWithTitle: @"Single Window Mode"
-                                   action: @selector(toggle:)
-                                   keyEquivalent: @""
-                                   atIndex: popupIndex];
+    NSInteger count = 0;
+    NSEnumerator* enumerator = [itemArray objectEnumerator];
+    NSMenuItem* item = nil;
+    while ((item = [enumerator nextObject]))
+    {
+        if ([item isSeparatorItem])
+            ++count;
+        if (count == 2)
+            break;
+    }
+
+    if (count != 2)
+        return;
+
+    item = [safariMenu insertItemWithTitle: @"Single Window Mode"
+                       action: @selector(toggle:)
+                       keyEquivalent: @""
+                       atIndex: [safariMenu indexOfItem: item]];
     if (!item)
         return;
 
