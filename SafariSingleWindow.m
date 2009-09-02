@@ -16,13 +16,7 @@
 - (WebView*) SafariSingleWindow_webView: (WebView*) sender
              createWebViewWithRequest: (NSURLRequest*) request
 {
-    NSWindow* window = [self window];
-    if (!window)
-        goto failed;
-    NSWindowController* controller = [window windowController];
-    if (!controller)
-        goto failed;
-    WebView* tab = [controller createTab];
+    WebView* tab = [[[self window] windowController] createTab];
     if (!tab)
         goto failed;
     WebFrame* frame = [tab mainFrame];
@@ -46,10 +40,7 @@ failed:
              createWebViewWithRequest: (NSURLRequest*) request
              windowFeatures: (NSDictionary*) features
 {
-    NSWindow* window = [self window];
-    if (!window)
-        goto failed;
-    NSWindowController* controller = [window windowController];
+    NSWindowController* controller = [[self window] windowController];
     if (!controller)
         goto failed;
 
