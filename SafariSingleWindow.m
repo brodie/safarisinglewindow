@@ -52,10 +52,20 @@ failed:
     NSWindowController* controller = [window windowController];
     if (!controller)
         goto failed;
-    WebView* tab = [controller createTab];
+
+    WebView* view = [[controller _browserDocument] createWebView];
+    if (!view)
+        goto failed;
+
+    unsigned int index = [controller selectedTabIndex];
+    ++index;
+    NSTabViewItem* tab = [controller _createTabWithWebView: view
+                                     atIndex: index
+                                     andShow: YES];
     if (!tab)
         goto failed;
-    WebFrame* frame = [tab mainFrame];
+
+    WebFrame* frame = [view mainFrame];
     if (!frame)
     {
         NSLog(@"[SafariSingleWindow] Got nil mainFrame for createTab, "
@@ -66,7 +76,7 @@ failed:
 
 succeeded:
     [frame loadRequest: request];
-    return tab;
+    return view;
 failed:
     return [self SafariSingleWindow_webView: sender
                  createWebViewWithRequest: request
