@@ -99,7 +99,7 @@ failed:
     }
     if (!class_getInstanceMethod(cls, @selector(closeTab:)))
         NSLog(@"[SafariSingleWindow] WARNING: Got nil Method for "
-               "[BrowserWindowController closeTab]");
+               "[BrowserWindowController closeTab:]");
     cls = NSClassFromString(@"BrowserWebView");
     if (!cls)
     {
