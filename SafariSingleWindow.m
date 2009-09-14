@@ -4,6 +4,23 @@
 
 #import "JRSwizzle.h"
 
+@interface BrowserDocument: NSObject
+- (WebView*) createWebView;
+@end
+
+@interface BrowserWindowController: NSObject
+- (WebView*) createTab;
+- (void) closeTab: (WebView*) tab;
+- (BrowserDocument*) _browserDocument;
+- (size_t) selectedTabIndex;
+- (WebView*) _createTabWithWebView: (WebView*) view
+             atIndex: (unsigned int) i
+             andShow: (BOOL) show;
+@end
+
+@interface WebView (SafariSingleWindowWebView)
+@end
+
 @implementation WebView (SafariSingleWindowWebView)
 
 - (void) SafariSingleWindow_webView: (WebView*) sender
@@ -16,7 +33,8 @@
 - (WebView*) SafariSingleWindow_webView: (WebView*) sender
              createWebViewWithRequest: (NSURLRequest*) request
 {
-    WebView* tab = [[[self window] windowController] createTab];
+    BrowserWindowController* controller = [[self window] windowController];
+    WebView* tab = [controller createTab];
     if (!tab)
         goto failed;
     WebFrame* frame = [tab mainFrame];
@@ -40,7 +58,7 @@ failed:
              createWebViewWithRequest: (NSURLRequest*) request
              windowFeatures: (NSDictionary*) features
 {
-    NSWindowController* controller = [[self window] windowController];
+    BrowserWindowController* controller = [[self window] windowController];
     if (!controller)
         goto failed;
 
@@ -50,9 +68,9 @@ failed:
 
     unsigned int index = [controller selectedTabIndex];
     ++index;
-    NSTabViewItem* tab = [controller _createTabWithWebView: view
-                                     atIndex: index
-                                     andShow: YES];
+    WebView* tab = [controller _createTabWithWebView: view
+                               atIndex: index
+                               andShow: YES];
     if (!tab)
         goto failed;
 
