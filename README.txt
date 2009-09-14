@@ -19,7 +19,7 @@ and I'll see what I can do to fix it.
 Download
 --------
 
-[SafariSingleWindow.dmg][4] (67 KB)
+[SafariSingleWindow.dmg][4] (77 KB)
 
 [4]: http://bitheap.org/singlewindow/SafariSingleWindow.dmg
 
