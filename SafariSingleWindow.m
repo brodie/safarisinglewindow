@@ -28,9 +28,9 @@
         goto failed;
     }
 
-succeeded:
     [frame loadRequest: request];
     return tab;
+
 failed:
     return [self SafariSingleWindow_webView: sender
                  createWebViewWithRequest: request];
@@ -65,9 +65,9 @@ failed:
         goto failed;
     }
 
-succeeded:
     [frame loadRequest: request];
     return view;
+
 failed:
     return [self SafariSingleWindow_webView: sender
                  createWebViewWithRequest: request
