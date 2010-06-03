@@ -59,20 +59,25 @@ newly added "Single Window Mode" menu item in the "Safari" menu.
 Development
 -----------
 
-Download the official development repository using [Mercurial][6]:
+Download the official development repository using [Git][6]:
 
-    hg clone http://bitheap.org/hg/safarisinglewindow/
+    git clone git://github.com/brodie/safarisinglewindow.git
 
 Run `make` to compile the plugin, and `make install` to install it into
 your home directory's SIMBL plugins folder. Run `make` and `make builddmg`
 to create a disk image of the application.
 
-[6]: http://www.selenic.com/mercurial/
+Visit [GitHub][7] if you'd like to fork the project, watch for new changes,
+or report issues.
+
+[6]: http://git-scm.org/
+[7]: http://github.com/brodie/mouseterm
+
 
 
 Contact
 -------
 
-Contact information can be found on my site, [brodierao.com][7].
+Contact information can be found on my site, [brodierao.com][8].
 
-[7]: http://brodierao.com/
+[8]: http://brodierao.com/
