@@ -71,7 +71,7 @@ Visit [GitHub][7] if you'd like to fork the project, watch for new changes,
 or report issues.
 
 [6]: http://git-scm.org/
-[7]: http://github.com/brodie/mouseterm
+[7]: http://github.com/brodie/safarisinglewindow
 
 
 
